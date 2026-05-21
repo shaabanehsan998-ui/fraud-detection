@@ -5,7 +5,7 @@ import numpy as np
 app = FastAPI()
 
 model = joblib.load("model.pkl")
-scaler = joblib.load("scaler.pkl")
+scaler = joblib.load("scaler.pkl") 
 
 @app.get("/")
 def home():
