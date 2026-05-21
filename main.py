@@ -1,37 +1,39 @@
-
 from fastapi import FastAPI
 import joblib
 import numpy as np
 
-# إنشاء التطبيق
 app = FastAPI()
 
-# تحميل النموذج
 model = joblib.load("model.pkl")
-
-# تحميل scaler
 scaler = joblib.load("scaler.pkl")
 
-# الصفحة الرئيسية
+
 @app.get("/")
 def home():
     return {
         "message": "Fraud Detection API Running"
     }
 
-# endpoint للتنبؤ
+
 @app.post("/predict")
 def predict(data: dict):
 
-    # تحويل البيانات إلى numpy array
-    features = np.array(data["features"]).reshape(1, -1)
+    try:
 
-    # scaling
-    features_scaled = scaler.transform(features)
+        features = np.array(data["features"], dtype=float)
 
-    # prediction
-    prediction = model.predict(features_scaled)
+        features = features.reshape(1, -1)
 
-    return {
-        "prediction": int(prediction[0])
-    }
+        features_scaled = scaler.transform(features)
+
+        prediction = model.predict(features_scaled)
+
+        return {
+            "prediction": int(prediction[0])
+        }
+
+    except Exception as e:
+
+        return {
+            "error": str(e)
+        }
