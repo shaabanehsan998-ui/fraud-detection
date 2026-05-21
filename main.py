@@ -47,5 +47,6 @@ def predict(data: dict):
     except Exception as e:
 
         return {
-            "error": str(e)
+            "prediction": int(prediction[0]),
+            "probability": str(probability)
         }
