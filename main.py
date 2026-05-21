@@ -29,7 +29,8 @@ def predict(data: dict):
         prediction = model.predict(features_scaled)
 
         return {
-            "prediction": int(prediction[0])
+            "prediction": str(prediction),
+            "type": str(type(prediction))
         }
 
     except Exception as e:
