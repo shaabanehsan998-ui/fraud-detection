@@ -7,7 +7,6 @@ app = FastAPI()
 model = joblib.load("model.pkl")
 scaler = joblib.load("scaler.pkl")
 
-
 @app.get("/")
 def home():
     return {
