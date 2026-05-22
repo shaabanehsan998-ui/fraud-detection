@@ -11,17 +11,22 @@ scaler = joblib.load("scaler.pkl")
 @app.post("/predict")
 def predict(data: dict):
 
-    features = np.array(data["features"], dtype=float).reshape(1, -1)
-
     try:
+
+        features = np.array(data["features"], dtype=float).reshape(1, -1)
+
         scaled = scaler.transform(features)
+
         pred = model.predict(scaled)
 
         return {
-            "prediction": int(pred[0])
+            "prediction": pred.tolist(),
+            "shape": str(pred.shape),
+            "type": str(type(pred))
         }
 
     except Exception as e:
+
         return {
             "error": str(e)
         }
