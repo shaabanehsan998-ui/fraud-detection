@@ -16,16 +16,13 @@ def predict(data: dict):
     try:
 
         features = np.array(data["features"], dtype=float).reshape(1, -1)
-
-        print("INPUT SHAPE:", features.shape)
-        print("MODEL EXPECTS:", model.n_features_in_)
-
+        
         scaled = scaler.transform(features)
-
+        
         prediction = model.predict(scaled)
         
         return {
-            "prediction": int(np.array(prediction).reshape(-1)[0])
+            "prediction": int(np.array(prediction).ravel()[0])
         }
 
     except Exception as e:
