@@ -21,6 +21,9 @@ def predict(data: dict):
 
         pred = model.predict(scaled)
 
+        print("SHAPE:", features.shape)
+        print("EXPECTED MODEL INPUT:", model.n_features_in_)
+
         return {
             "prediction": pred.tolist(),
             "shape": str(pred.shape),
