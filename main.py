@@ -22,12 +22,10 @@ def predict(data: dict):
 
         scaled = scaler.transform(features)
 
-        pred = model.predict(scaled)
-
+        prediction = model.predict(scaled)
+        
         return {
-            "prediction": pred.tolist(),
-            "input_shape": str(features.shape),
-            "model_expected": str(model.n_features_in_)
+            "prediction": int(np.array(prediction).reshape(-1)[0])
         }
 
     except Exception as e:
