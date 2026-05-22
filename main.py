@@ -2,6 +2,8 @@ from fastapi import FastAPI
 import joblib
 import numpy as np
 
+print("NEW MAIN FILE LOADED")
+
 app = FastAPI()
 
 # تحميل النموذج والـ scaler
