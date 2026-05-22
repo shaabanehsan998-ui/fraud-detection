@@ -17,21 +17,22 @@ def predict(data: dict):
 
         features = np.array(data["features"], dtype=float).reshape(1, -1)
 
+        print("INPUT SHAPE:", features.shape)
+        print("MODEL EXPECTS:", model.n_features_in_)
+
         scaled = scaler.transform(features)
 
         pred = model.predict(scaled)
 
-        print("SHAPE:", features.shape)
-        print("EXPECTED MODEL INPUT:", model.n_features_in_)
-
         return {
             "prediction": pred.tolist(),
-            "shape": str(pred.shape),
-            "type": str(type(pred))
+            "input_shape": str(features.shape),
+            "model_expected": str(model.n_features_in_)
         }
 
     except Exception as e:
 
         return {
             "error": str(e)
+        }
         }
